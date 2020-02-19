@@ -1,20 +1,22 @@
-import pandas as pd
-import numpy as np
-from bs4 import BeautifulSoup
 import datetime as dt
 import json
-import os
+import pickle
 import requests
 import csv
+import time as tt
+import random
 
-token_dict = {'AAPL': 'AAPL.OQ', 'AMZN': 'AMZN.OQ', 'GOOGL': 'GOOGL.O'}
+tickers = open('comp_dict.pkl', 'rb')
+token_dict = pickle.load(tickers)
 
 for tok in token_dict.keys():
     token = tok
     ticker = token_dict[tok]
     use_date = None
-    time = 1581379199000000000
+    time = 1582104443000000000
     n_data = []
+    tt.sleep(random.randint(0, 10))
+
     while time >= 1475884800000000000:
 
         r1 = requests.get("https://wireapi.reuters.com/v8/feed/rcom/us/marketnews/ric:{}?until={}".format(ticker, time))
