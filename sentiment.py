@@ -1,14 +1,25 @@
-from google.cloud import language
-import os
+from textblob import TextBlob
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+import numpy as np
+import math
 
 
-def analyzetext(text):
-    print("Performing sentiment analysis")
+def sent_avg_score(text):
+    tb_object = TextBlob(text)
+    vader_analyzer = SentimentIntensityAnalyzer()
+    vader_score = vader_analyzer.polarity_scores(text)['compound']
+    textblob_score = tb_object.sentiment.polarity
+    return (vader_score + textblob_score) / 2
 
-    API_SIZE_LIMIT = 1000000
-    text = text[:API_SIZE_LIMIT]
-    language_client = language.LanguageServiceClient()
-    document = language_client.document_from_text(text)
-    sentiment = document.analyze_sentiment()
 
-    return sentiment
+def sent_score(text):
+    vader_analyzer = SentimentIntensityAnalyzer()
+    vader_score = vader_analyzer.polarity_scores(text)['compound']
+    return vader_score
+
+
+def sent_magnitude(text):
+    vader_analyzer = SentimentIntensityAnalyzer()
+    c = vader_analyzer.polarity_scores(text)['compound']
+    mag = math.sqrt((math.pow(c, 2) * 15) / (1 - math.pow(c, 2)))
+    return mag
