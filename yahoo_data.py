@@ -9,15 +9,15 @@ from pandas_datareader._utils import RemoteDataError
 
 yf.pdr_override
 
-start = datetime.datetime(2017, 1, 1)
-end = datetime.datetime(2020, 2, 10)
+start = datetime.datetime(2017, 2, 6)
+end = datetime.datetime(2020, 2, 19)
 
 with open('snp500_formatted.txt', 'r') as f:
     data = f.read()
 data = data.split('\n')
 all_filenames = data
 
-os.chdir("D:/Ronet's Corner/VIT/Capstone Project/Code/Capstone-Revised/2019 data")
+os.chdir("D:/Ronet's Corner/VIT/Capstone Project/Code/Stock Prediction using news articles on a deep learning architecture/2019 data")
 
 for name in all_filenames:
     try:
