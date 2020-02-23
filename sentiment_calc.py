@@ -17,7 +17,7 @@ def getStockData(symbol, date):
 
     for row in csv_file:
         if row[0] == date.strftime('%Y-%m-%d'):
-            data.append(float(row[1]))
+            data.append(float(row[3]))
             data.append(float(row[4]))
 
             return data
@@ -28,7 +28,7 @@ def getStockData(symbol, date):
 alphas = [3, 5, 8, 10, 15]
 
 for alpha in alphas:
-    file_to_process = open('process_file_' + str(alpha) + '.csv', 'a', newline="", encoding='utf-8')
+    file_to_process = open('process/process_file_' + str(alpha) + '.csv', 'a', newline="", encoding='utf-8')
     writer = csv.writer(file_to_process)
 
     date = datetime.date(2017, 2, 6)

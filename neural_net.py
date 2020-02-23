@@ -8,7 +8,7 @@ import tensorflow.contrib.slim as slim
 
 
 def getData():
-    with open('process_file_1.5.csv') as csv_file:
+    with open('process_file_3.csv') as csv_file:
         reader = csv.reader(csv_file)
         data = list(reader)
 
@@ -24,8 +24,8 @@ def preprocessData(data):
 
     # Uncomment lines below to use stock symbol and day parameters
     # WARNING: Epochs may be extremely slow
-    processed_data = one_hot_encoder.fit_transform(data[:, 0:2]).toarray()
-    processed_data = np.append(processed_data, data[:, 2:6], 1)
+    # processed_data = one_hot_encoder.fit_transform(data[:, 0:2]).toarray()
+    # processed_data = np.append(processed_data, data[:, 2:6], 1)
 
     # Do not use stock symbol and day parameters for training
     processed_data = data[:, 2:6]
