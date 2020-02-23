@@ -25,8 +25,7 @@ def getStockData(symbol, date):
     return -1
 
 
-#alphas = [1.5, 3, 5, 8, 10, 15]
-alphas = [1.5]
+alphas = [3, 5, 8, 10, 15]
 
 for alpha in alphas:
     file_to_process = open('process_file_' + str(alpha) + '.csv', 'a', newline="", encoding='utf-8')
