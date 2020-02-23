@@ -1,9 +1,6 @@
-import pandas as pd
-import numpy as np
 import datetime as datetime
 import os
 import pandas_datareader.data as pdr
-import csv
 import fix_yahoo_finance as yf
 from pandas_datareader._utils import RemoteDataError
 

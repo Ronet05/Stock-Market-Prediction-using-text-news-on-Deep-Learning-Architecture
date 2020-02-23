@@ -3,6 +3,8 @@ import sentiment
 import datetime
 
 
+# needs to be optimized using pandas to vectorize the working of the getStockData function
+
 def getStockData(symbol, date):
     file = open('2019 data/' + symbol + '.csv', 'r')
     csv_file = csv.reader(file)
@@ -23,11 +25,10 @@ def getStockData(symbol, date):
 
 
 alphas = [1.5, 3, 5, 8, 10, 15]
-for alpha in alphas:
-    file_to_process = open('process_file'+str(alpha)+'.csv', 'a', newline="", encoding='utf-8')
-    writer = csv.writer(file_to_process)
 
-    # date (start date needs to be fed (pickle original))
+for alpha in alphas:
+    file_to_process = open('process_file' + str(alpha) + '.csv', 'a', newline="", encoding='utf-8')
+    writer = csv.writer(file_to_process)
 
     date = datetime.date(2017, 2, 6)
     endDate = datetime.date(2020, 2, 19)
@@ -56,4 +57,3 @@ for alpha in alphas:
             writer.writerow(data)
 
         date += datetime.timedelta(days=1)
-

@@ -1,8 +1,5 @@
 import requests
-import pandas as pd
-import numpy as np
 from bs4 import BeautifulSoup
-import os
 import datetime as dt
 
 r = requests.get("https://www.nasdaq.com/api/v1/loadmore/content_feed_2_3?content_types%5B0%5D=article&title=Latest%20News&load_more_text=See%20More&filter_by=symbol&filter_value=81&limit=50&total_limit=40&press_releases_tab_enabled=1&offset=250")

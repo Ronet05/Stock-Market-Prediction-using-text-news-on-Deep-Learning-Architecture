@@ -1,6 +1,4 @@
 import pickle
-import csv
-import re
 
 with open('tickers_scrape_news.txt', 'r') as f:
     comps = f.read()

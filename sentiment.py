@@ -1,6 +1,5 @@
 from textblob import TextBlob
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-import numpy as np
 import math
 
 
