@@ -18,8 +18,8 @@ def sent_score(text):
     return vader_score
 
 
-def sent_magnitude(text):
+def sent_magnitude(text, alpha):
     vader_analyzer = SentimentIntensityAnalyzer()
     c = vader_analyzer.polarity_scores(text)['compound']
-    mag = math.sqrt((math.pow(c, 2) * 15) / (1 - math.pow(c, 2)))
+    mag = math.sqrt((math.pow(c, 2) * alpha) / (1 - math.pow(c, 2)))
     return mag
