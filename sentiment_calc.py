@@ -9,7 +9,10 @@ def getStockData(symbol, date):
     file = open('2019 data/' + symbol + '.csv', 'r')
     csv_file = csv.reader(file)
 
-    date += datetime.timedelta(days=1)
+    try:
+        date += datetime.timedelta(days=1)
+    except FileNotFoundError:
+        return -1
     data = []
 
     print("Getting stock data for {} for date {}".format(symbol, date.strftime('%Y-%m-%d')))
@@ -41,7 +44,12 @@ for alpha in alphas:
             continue
 
         filename = date.strftime('%Y-%m-%d')
-        file = open('2019 data/news/' + filename + '.csv', encoding='utf-8')
+        try:
+            file = open('2019 data/news/' + filename + '.csv', encoding='utf-8')
+        except FileNotFoundError:
+            date += datetime.timedelta(days=1)
+            continue
+
 
         for row in file:
             comp = row.split(',', 1)[0]
