@@ -6,15 +6,13 @@ import datetime
 # needs to be optimized using pandas to vectorize the working of the getStockData function
 
 def getStockData(symbol, date):
-    file = open('2019 data/' + symbol + '.csv', 'r')
-    csv_file = csv.reader(file)
-
     try:
-        date += datetime.timedelta(days=1)
+        file = open('2019 data/' + symbol + '.csv', 'r')
     except FileNotFoundError:
         return -1
+    csv_file = csv.reader(file)
+    date += datetime.timedelta(days=1)
     data = []
-
     print("Getting stock data for {} for date {}".format(symbol, date.strftime('%Y-%m-%d')))
 
     for row in csv_file:
@@ -27,10 +25,11 @@ def getStockData(symbol, date):
     return -1
 
 
-alphas = [1.5, 3, 5, 8, 10, 15]
+#alphas = [1.5, 3, 5, 8, 10, 15]
+alphas = [1.5]
 
 for alpha in alphas:
-    file_to_process = open('process_file' + str(alpha) + '.csv', 'a', newline="", encoding='utf-8')
+    file_to_process = open('process_file_' + str(alpha) + '.csv', 'a', newline="", encoding='utf-8')
     writer = csv.writer(file_to_process)
 
     date = datetime.date(2017, 2, 6)
@@ -49,7 +48,6 @@ for alpha in alphas:
         except FileNotFoundError:
             date += datetime.timedelta(days=1)
             continue
-
 
         for row in file:
             comp = row.split(',', 1)[0]

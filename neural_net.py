@@ -8,7 +8,7 @@ import tensorflow.contrib.slim as slim
 
 
 def getData():
-    with open('') as csv_file:
+    with open('process_file_1.5.csv') as csv_file:
         reader = csv.reader(csv_file)
         data = list(reader)
 
