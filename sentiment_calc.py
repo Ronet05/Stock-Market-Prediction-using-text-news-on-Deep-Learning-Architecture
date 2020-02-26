@@ -24,8 +24,7 @@ def getStockData(symbol, date):
 
     return -1
 
-
-alphas = [3, 5, 8, 10, 15]
+alphas = [0.5, 1.5, 3, 5, 8, 10, 15]  # 15 default as per VADER
 
 for alpha in alphas:
     file_to_process = open('process/process_file_' + str(alpha) + '.csv', 'a', newline="", encoding='utf-8')
