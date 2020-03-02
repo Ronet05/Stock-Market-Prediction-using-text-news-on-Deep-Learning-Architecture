@@ -19,16 +19,16 @@ def preprocessData(data):
     label_encoder = preprocessing.LabelEncoder()
     one_hot_encoder = preprocessing.OneHotEncoder()
 
-    data[:, 0] = label_encoder.fit_transform(data[:, 0])
-    data = data.astype(float)
+    # data[:, 0] = label_encoder.fit_transform(data[:, 0])
+    # data = data.astype(float)
 
     # Uncomment lines below to use stock symbol and day parameters
     # WARNING: Epochs may be extremely slow
-    # processed_data = one_hot_encoder.fit_transform(data[:, 0:2]).toarray()
-    # processed_data = np.append(processed_data, data[:, 2:6], 1)
+    processed_data = one_hot_encoder.fit_transform(data[:, 0:2]).toarray()
+    processed_data = np.append(processed_data, data[:, 2:6], 1)
 
     # Do not use stock symbol and day parameters for training
-    processed_data = data[:, 2:6]
+    # processed_data = data[:, 2:6]
 
     processed_data = preprocessing.normalize(processed_data)
     np.random.shuffle(processed_data)
