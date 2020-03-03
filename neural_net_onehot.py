@@ -16,7 +16,8 @@ def getData():
 
 
 def preprocessData(data):
-    label_encoder = preprocessing.LabelEncoder() #check different file
+    # check different file
+    label_encoder = preprocessing.LabelEncoder()
     one_hot_encoder = preprocessing.OneHotEncoder()
 
     processed_data = one_hot_encoder.fit_transform(data[:, 0:2]).toarray()
@@ -77,8 +78,9 @@ def learn(data):
     epochs = 1
     max_epochs = 1e6
 
-    sess = tf.Session()
-    with sess.as_default():
+    config  = tf.ConfigProto(device_count = {'GPU':0})
+    sess = tf.Session(config=config)
+    with sess:
         init = tf.global_variables_initializer()
         sess.run(init)
 
