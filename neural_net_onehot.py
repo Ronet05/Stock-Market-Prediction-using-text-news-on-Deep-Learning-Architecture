@@ -67,6 +67,8 @@ def learn(data):
     layer_1_dropout = tf.nn.dropout(layer_1, keep_prob_hidden)
     layer_2 = slim.fully_connected(input_dropout, n_hidden_1, biases_initializer=None, activation_fn=tf.nn.relu)
     layer_2_dropout = tf.nn.dropout(layer_2, keep_prob_hidden)
+    # regression  layer = (w'x+b)
+
     output_layer = tf.add(tf.matmul(layer_2_dropout, weights['out']), biases['out'])
 
     learning_rate = 1e-4
@@ -78,12 +80,13 @@ def learn(data):
     epochs = 1
     max_epochs = 1e6
 
-    config  = tf.ConfigProto(device_count = {'GPU':0})
+    config = tf.ConfigProto(log_device_placement = True)
     sess = tf.Session(config=config)
     with sess:
         init = tf.global_variables_initializer()
         sess.run(init)
 
+        history = []
         while True:
             sess.run(optimizer,
                      feed_dict={stock_data: train_X, opening_price: train_opening_price, stock_price: train_Y,
@@ -93,6 +96,7 @@ def learn(data):
                 cost = sess.run(cost_function, feed_dict={stock_data: train_X, opening_price: train_opening_price,
                                                           stock_price: train_Y, keep_prob_input: 0.8,
                                                           keep_prob_hidden: 0.5})
+                history.append(cost)
                 print("Epoch: %d: Error: %f" % (epochs, cost))
 
                 if abs(cost - last_cost) <= tolerance or epochs > max_epochs:
