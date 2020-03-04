@@ -31,20 +31,21 @@ def preprocessData(df):
     np.random.shuffle(label_processdf)
 
     ohe_processed = one_hot_encoder.fit_transform(df_ohe[:, 0:2]).toarray()
-    ohe_processdf = np.append(ohe_processed, df_ohe[2:6], 1)
-    np.random.shuffle(ohe_processdf)
+    ohe_processed = np.append(ohe_processed, df_ohe[:, 2:6], axis = 1)
+    ohe_processed = normalizer.fit_transform(ohe_processed)
+    np.random.shuffle(ohe_processed)
 
-    return label_processdf, ohe_processdf
+    return label_processdf, ohe_processed
 
 
 def learn(data):
     labeldf, ohedf = preprocessData(data)
 
-    X_labeled = labeldf[:, 0:labeldf.shape[1] - 1]
+    X_labeled = labeldf[:, 0:(labeldf.shape[1] - 1)]
     Y_labeled = labeldf[:, -1].reshape(-1, 1)
 
-    X_ohe = labeldf[:, 0:labeldf.shape[1] - 1]
-    Y_ohe = labeldf[:, -1].reshape(-1, 1)
+    X_ohe = ohedf[:, 0:(ohedf.shape[1] - 1)]
+    Y_ohe = ohedf[:, -1].reshape(-1, 1)
 
     # Created 2 sets of data to train with each model, will increase time duration but also give wider results
     x_l_train, x_l_test, y_l_train, y_l_test = train_test_split(X_labeled, Y_labeled, train_size=0.7)
@@ -77,22 +78,11 @@ def learn(data):
     rf_l_predict = rf_l.predict(x_l_test)
     gb_l_predict = gb_l.predict(x_l_test)
 
-    svr_o_predict = svr_o.predict(x_o_test)
-    lr_o_predict = lr_o.predict(x_o_test)
-    rf_o_predict = rf_o.predict(x_o_test)
-    gb_o_predict = gb_o.predict(x_o_test)
-
     # evaluate for label encode
     svr_l_result = np.sqrt(mean_squared_error(y_l_test, svr_l_predict))
     lr_l_result = np.sqrt(mean_squared_error(y_l_test, lr_l_predict))
     rf_l_result = np.sqrt(mean_squared_error(y_l_test, rf_l_predict))
     gb_l_result = np.sqrt(mean_squared_error(y_l_test, gb_l_predict))
-
-    # evaluate for one hot encode
-    svr_o_result = np.sqrt(mean_squared_error(y_o_test, svr_o_predict))
-    lr_o_result = np.sqrt(mean_squared_error(y_o_test, lr_o_predict))
-    rf_o_result = np.sqrt(mean_squared_error(y_o_test, rf_o_predict))
-    gb_o_result = np.sqrt(mean_squared_error(y_o_test, gb_o_predict))
 
     print("Printing for LabelEncoded Data")
     print("Test Error for SVR: ", svr_l_result)
@@ -100,16 +90,24 @@ def learn(data):
     print("Test Error for RFR: ", rf_l_result)
     print("Test Error for GBR: ", gb_l_result)
 
+    svr_o_predict = svr_o.predict(x_o_test)
+    lr_o_predict = lr_o.predict(x_o_test)
+    rf_o_predict = rf_o.predict(x_o_test)
+    gb_o_predict = gb_o.predict(x_o_test)
+
+    # evaluate for one hot encode
+    svr_o_result = np.sqrt(mean_squared_error(y_o_test, svr_o_predict))
+    lr_o_result = np.sqrt(mean_squared_error(y_o_test, lr_o_predict))
+    rf_o_result = np.sqrt(mean_squared_error(y_o_test, rf_o_predict))
+    gb_o_result = np.sqrt(mean_squared_error(y_o_test, gb_o_predict))
+
     print("Printing for OneHot Encoded")
     print("Test Error for SVR: ", svr_o_result)
-    print("Test Error for SVR: ", lr_o_result)
-    print("Test Error for SVR: ", rf_o_result)
-    print("Test Error for SVR: ", gb_o_result)
+    print("Test Error for LR: ", lr_o_result)
+    print("Test Error for RFR: ", rf_o_result)
+    print("Test Error for GBR: ", gb_o_result)
 
 
 def main():
     df = np.array(getData())
     learn(df)
-
-
-main()

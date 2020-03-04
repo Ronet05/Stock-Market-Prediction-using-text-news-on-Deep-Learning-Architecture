@@ -16,8 +16,6 @@ def getData():
 
 
 def preprocessData(data):
-    # check different file
-    label_encoder = preprocessing.LabelEncoder()
     one_hot_encoder = preprocessing.OneHotEncoder()
 
     processed_data = one_hot_encoder.fit_transform(data[:, 0:2]).toarray()
