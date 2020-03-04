@@ -2,7 +2,6 @@ import csv
 import numpy as np
 from sklearn.model_selection import train_test_split, KFold
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder, Normalizer
-import pickle
 from sklearn.linear_model import LinearRegression
 from sklearn.svm import SVR
 from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
@@ -107,8 +106,10 @@ def learn(data):
     print("Test Error for SVR: ", rf_o_result)
     print("Test Error for SVR: ", gb_o_result)
 
+
 def main():
     df = np.array(getData())
-    learn(data)
+    learn(df)
+
 
 main()
