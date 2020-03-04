@@ -49,14 +49,28 @@ def learn(data):
     x_l_train, x_l_test, y_l_train, y_l_test = train_test_split(X_labeled, Y_labeled, train_size=0.7)
     x_o_train, x_o_test, y_o_train, y_o_test = train_test_split(X_ohe, Y_ohe, train_size=0.7)
 
-    svr_l = SVR(kernel='')
-    svr_o = SVR()
+    svr_l = SVR(kernel='linear')
+    svr_o = SVR(kernel='rbf')
     lr_l = LinearRegression()
     lr_o = LinearRegression()
     rf_l = RandomForestRegressor()
     rf_o = RandomForestRegressor()
     gb_l = GradientBoostingRegressor()
     gb_o = GradientBoostingRegressor()
+
+    # fitting for simple label encoded
+    svr_l.fit(x_l_train, y_l_train)
+    lr_l.fit(x_l_train, y_l_train)
+    rf_l.fit(x_l_train, y_l_train)
+    gb_l.fit(x_l_train, y_l_train)
+
+    # fitting for one hot encoded
+    svr_o.fit(x_o_train, y_o_train)
+    lr_o.fit(x_o_train, y_o_train)
+    rf_o.fit(x_o_train, y_o_train)
+    gb_o.fit(x_o_train, y_o_train)
+
+
 
 
 
