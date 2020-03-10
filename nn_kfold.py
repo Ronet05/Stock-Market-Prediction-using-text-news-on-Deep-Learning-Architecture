@@ -92,6 +92,7 @@ def learn(data):
     test_dict = {}
     validation_dict = {}
     fold_num = 0
+
     for train_index, test_index in kf.split(X_train):
         train_X, test_X = X_train[train_index], X_train[test_index]
         train_Y, test_Y = Y_train[train_index], Y_train[test_index]
@@ -131,7 +132,7 @@ def learn(data):
                                    feed_dict={stock_data: test_X, opening_price: validation_opening_price,
                                               stock_price: test_Y, keep_prob_input: 1.0,
                                               keep_prob_hidden: 1.0}))
-                    validation_results = sess.run(output_layer,
+                    validation_results = sess.run(cost_function,
                                                   feed_dict={stock_data: test_X, stock_price: test_Y,
                                                              keep_prob_input: 1.0,
                                                              keep_prob_hidden: 1.0})
@@ -184,6 +185,7 @@ def learn(data):
     pk_test.close()
     pk_train.close()
     pk_val.close()
+
 
 def main():
     data = np.array(getData())

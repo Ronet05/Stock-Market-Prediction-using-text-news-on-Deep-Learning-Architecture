@@ -7,8 +7,8 @@ import tensorflow as tf
 import tensorflow.contrib.slim as slim
 
 
-def getData():
-    with open('process/process_file_3.csv') as csv_file:
+def getData(alpha):
+    with open('process/process_file_'+alpha+'.csv') as csv_file:
         reader = csv.reader(csv_file)
         data = list(reader)
 
@@ -123,10 +123,12 @@ def learn(data):
     max_perc_error *= 100
     print("Maximum percentage error: %f\nAverage percentage error: %f\n" % (max_perc_error, avg_perc_error))
 
-
+alphas = [0.5, 1.5, 3, 5, 8, 10, 15]
 def main():
-    data = np.array(getData())
-    learn(data)
+    for i in alphas:
+        data = np.array(getData())
+        learn(data)
+
 
 
 main()
