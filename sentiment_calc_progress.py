@@ -28,7 +28,7 @@ def getStockData(symbol, date):
 alphas = [0.5, 1.5, 3, 5, 8, 10, 15]  # 15 default as per VADER
 
 for alpha in alphas:
-    file_to_process = open('process/process_file_' + str(alpha) + '.csv', 'a', newline="", encoding='utf-8')
+    file_to_process = open('process/process_file_progress_' + str(alpha) + '.csv', 'a', newline="", encoding='utf-8')
     writer = csv.writer(file_to_process)
 
     date = datetime.date(2017, 2, 6)
@@ -57,7 +57,18 @@ for alpha in alphas:
 
             data = []
 
-            data.extend((comp, date.timetuple().tm_yday))
+            #to make sure that each year day value unique. May result in poorer stats
+
+            if(date.year == 2017):
+                day_num = date.timetuple().tm_yday
+            elif (date.year == 2018):
+                day_num=date.timetuple().tm_yday+365
+            elif (date.year == 2019):
+                day_num = date.timetuple().tm_yday + (2*365)
+            elif date.year == 2020:
+                day_num = date.timetuple().tm_yday + (3*365)
+
+            data.extend((comp, day_num))
             data.extend((sentiment.sent_score(comp_news), sentiment.sent_magnitude(comp_news, alpha)))
             data.extend(stockData)
             writer.writerow(data)
