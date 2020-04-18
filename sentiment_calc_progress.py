@@ -57,16 +57,16 @@ for alpha in alphas:
 
             data = []
 
-            #to make sure that each year day value unique. May result in poorer stats
+            # to make sure that each year day value unique. May result in poorer stats
 
-            if(date.year == 2017):
+            if date.year == 2017:
                 day_num = date.timetuple().tm_yday
-            elif (date.year == 2018):
-                day_num=date.timetuple().tm_yday+365
-            elif (date.year == 2019):
-                day_num = date.timetuple().tm_yday + (2*365)
+            elif date.year == 2018:
+                day_num = date.timetuple().tm_yday + 365
+            elif date.year == 2019:
+                day_num = date.timetuple().tm_yday + (2 * 365)
             elif date.year == 2020:
-                day_num = date.timetuple().tm_yday + (3*365)
+                day_num = date.timetuple().tm_yday + (3 * 365)
 
             data.extend((comp, day_num))
             data.extend((sentiment.sent_score(comp_news), sentiment.sent_magnitude(comp_news, alpha)))
